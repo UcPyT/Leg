@@ -1,0 +1,137 @@
+Tab1:AddTextbox({
+	Name = "Reach",
+	Default = "",
+	TextDisappear = true,
+	Callback = function(Studs)
+
+
+local player = game.Players.LocalPlayer
+
+local function modifyLegs(character)
+    if character.Humanoid.RigType == Enum.HumanoidRigType.R6 then
+        local rightLeg = character:FindFirstChild("Right Leg")
+        if game.Lighting[game.Players.LocalPlayer.Name].PreferredFoot.Value == 1 then
+            rightLeg.Massless = true
+            rightLeg.Size = Vector3.new(Studs, 2, Studs)
+            rightLeg.Transparency = 1
+            local newRightLeg = Instance.new("Part")
+            newRightLeg.Name = "Right Leg"
+            newRightLeg.CanCollide = false
+            newRightLeg.Color = rightLeg.Color
+            newRightLeg.Size = Vector3.new(1, 2, 1)
+            newRightLeg.Locked = true
+            newRightLeg.Position = rightLeg.Position
+            newRightLeg.Parent = character
+            local attachment = Instance.new("Attachment")
+            attachment.Name = "RightFootAttachment"
+            attachment.Position = Vector3.new(0, -1, 0)
+            attachment.Parent = newRightLeg
+            local motorHip = Instance.new("Motor6D")
+            motorHip.Name = "Fake Right Hip"
+            motorHip.C0 = CFrame.new(1, -1, 0, 0, 0, 1, 0, 1, -0, -1, 0, 0)
+            motorHip.C1 = CFrame.new(0.5, 1, 0, 0, 0, 1, 0, 1, -0, -1, 0, 0)
+            motorHip.CurrentAngle = 0
+            motorHip.DesiredAngle = 0
+            motorHip.MaxVelocity = 0.1
+            motorHip.Part0 = character.Torso
+            motorHip.Part1 = newRightLeg
+            motorHip.Parent = character.Torso
+        else
+            local leftLeg = character:FindFirstChild("Left Leg")
+            leftLeg.Massless = true
+            leftLeg.Size = Vector3.new(Studs, 2, Studs)
+            leftLeg.Transparency = 1
+            local newLeftLeg = Instance.new("Part")
+            newLeftLeg.Name = "Left Leg"
+            newLeftLeg.CanCollide = false
+            newLeftLeg.Color = leftLeg.Color
+            newLeftLeg.Size = Vector3.new(1, 2, 1)
+            newLeftLeg.Locked = true
+            newLeftLeg.Position = leftLeg.Position
+            newLeftLeg.Parent = character
+            local attachment = Instance.new("Attachment")
+            attachment.Name = "LeftFootAttachment"
+            attachment.Position = Vector3.new(0, -1, 0)
+            attachment.Parent = newLeftLeg
+            local motorHip = Instance.new("Motor6D")
+            motorHip.Name = "Fake Left Hip"
+            motorHip.C0 = CFrame.new(-1, -1, 0, 0, 0, -1, 0, 1, 0, 1, 0, 0)
+            motorHip.C1 = CFrame.new(-0.5, 1, 0, 0, 0, -1, 0, 1, 0, 1, 0, 0)
+            motorHip.CurrentAngle = 0.18690308928489685
+            motorHip.DesiredAngle = 0.00016103983216453344
+            motorHip.MaxVelocity = 0.1
+            motorHip.Part0 = character.Torso
+            motorHip.Part1 = newLeftLeg
+            motorHip.Parent = character.Torso
+        end
+    else
+        local rightLowerLeg = character:FindFirstChild("RightLowerLeg")
+        local leftLowerLeg = character:FindFirstChild("LeftLowerLeg")
+        
+        if game.Lighting[player.Name].PreferredFoot.Value == 1 then
+            rightLowerLeg.Massless = true
+            rightLowerLeg.Size = Vector3.new(Studs, 2, Studs)
+            rightLowerLeg.Transparency = 1
+            local newRightLowerLeg = Instance.new("Part")
+            newRightLowerLeg.Name = "RightLowerLeg"
+            newRightLowerLeg.CanCollide = false
+            newRightLowerLeg.Color = rightLowerLeg.Color
+            newRightLowerLeg.Size = Vector3.new(1, 2, 1)
+            newRightLowerLeg.Locked = true
+            newRightLowerLeg.Position = rightLowerLeg.Position
+            newRightLowerLeg.Parent = character
+            local attachment = Instance.new("Attachment")
+            attachment.Name = "RightFootAttachment"
+            attachment.Position = Vector3.new(0, -1, 0)
+            attachment.Parent = newRightLowerLeg
+            local motorHip = Instance.new("Motor6D")
+            motorHip.Name = "Fake Right Hip"
+            motorHip.C0 = CFrame.new(1, -1, 0, 0, 0, 1, 0, 1, -0, -1, 0, 0)
+            motorHip.C1 = CFrame.new(0.5, 1, 0, 0, 0, 1, 0, 1, -0, -1, 0, 0)
+            motorHip.CurrentAngle = 0
+            motorHip.DesiredAngle = 0
+            motorHip.MaxVelocity = 0.1
+            motorHip.Part0 = character.Torso
+            motorHip.Part1 = newRightLowerLeg
+            motorHip.Parent = character.Torso
+        else
+            leftLowerLeg.Massless = true
+            leftLowerLeg.Size = Vector3.new(Studs, 2, Studs)
+            leftLowerLeg.Transparency = 1
+            local newLeftLowerLeg = Instance.new("Part")
+            newLeftLowerLeg.Name = "LeftLowerLeg"
+            newLeftLowerLeg.CanCollide = false
+            newLeftLowerLeg.Color = leftLowerLeg.Color
+            newLeftLowerLeg.Size = Vector3.new(1, 2, 1)
+            newLeftLowerLeg.Locked = true
+            newLeftLowerLeg.Position = leftLowerLeg.Position
+            newLeftLowerLeg.Parent = character
+            local attachment = Instance.new("Attachment")
+            attachment.Name = "LeftFootAttachment"
+            attachment.Position = Vector3.new(0, -1, 0)
+            attachment.Parent = newLeftLowerLeg
+            local motorHip = Instance.new("Motor6D")
+            motorHip.Name = "Fake Left Hip"
+            motorHip.C0 = CFrame.new(1, -1, 0, 0, 0, 1, 0, 1, -0, -1, 0, 0)
+            motorHip.C1 = CFrame.new(0.5, 1, 0, 0, 0, 1, 0, 1, -0, -1, 0, 0)
+            motorHip.CurrentAngle = 0
+            motorHip.DesiredAngle = 0
+            motorHip.MaxVelocity = 0.1
+            motorHip.Part0 = character.Torso
+            motorHip.Part1 = newLeftLowerLeg
+            motorHip.Parent = character.Torso
+        end
+    end
+end
+
+player.CharacterAdded:Connect(function(character)
+    character:WaitForChild("Humanoid")
+    modifyLegs(character)
+end)
+
+if player.Character then
+    modifyLegs(player.Character)
+end
+
+	end	  
+})

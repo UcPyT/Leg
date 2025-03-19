@@ -1,9 +1,4 @@
-Tab1:AddTextbox({
-	Name = "Reach",
-	Default = "",
-	TextDisappear = true,
-	Callback = function(Studs)
-
+local Studs = 2.2 -- تحديد القيمة مباشرة هنا
 
 local player = game.Players.LocalPlayer
 
@@ -132,6 +127,3 @@ end)
 if player.Character then
     modifyLegs(player.Character)
 end
-
-	end	  
-})

@@ -1,71 +1,37 @@
+local Players = game:GetService("Players")
+local player = Players.LocalPlayer
+local ball = workspace:WaitForChild("TPSSystem"):WaitForChild("TPS")
 
-local playerName = "ssk_yy3mk"
-local player = workspace:FindFirstChild(playerName)
-local head = player and player:FindFirstChild("Head")
-local torso = player and player:FindFirstChild("Torso")
-local leftArm = player and player:FindFirstChild("LeftArm")
-local rightArm = player and player:FindFirstChild("RightArm")
+local ohInstance1 = ball
+local ohString2 = "LovelyPeopleAroundMe"
+local ohString3 = "HopingForTheBest"
 
-if head then
-    head.CanCollide = false
-    head.CanQuery = false
-    head.CanTouch = true
-    head.Shape = Enum.PartType.Wedge
-    head.CustomPhysicalProperties = PhysicalProperties.new(1, 0.3, 0.5)
+local triggerDistance = 6 -- studs
+local canFire = true
+
+local function getHead()
+    local character = player.Character or player.CharacterAdded:Wait()
+    return character:WaitForChild("Head")
 end
 
-if torso then
-    torso.CanCollide = false
-    torso.CanQuery = false
-    torso.CanTouch = true
-    torso.CustomPhysicalProperties = PhysicalProperties.new(1, 0.3, 0.5)
-end
+local head = getHead()
 
-if leftArm then
-    leftArm.CanCollide = false
-    leftArm.CanQuery = false
-    leftArm.CanTouch = true
-    leftArm.CustomPhysicalProperties = PhysicalProperties.new(1, 0.3, 0.5)
-end
-
-if rightArm then
-    rightArm.CanCollide = false
-    rightArm.CanQuery = false
-    rightArm.CanTouch = true
-    rightArm.CustomPhysicalProperties = PhysicalProperties.new(1, 0.3, 0.5)
-end
-
-
-local ball = workspace:FindFirstChild("TPSSystem") and workspace.TPSSystem:FindFirstChild("TPS")
-if ball then
-    ball.CanCollide = false
-    ball.CanQuery = false
-    ball.CanTouch = true
-end
-
-
-local RunStepped2 = game:GetService("RunService").RenderStepped:Connect(function()
-    if game.Players.LocalPlayer.Character.Humanoid.RigType == Enum.HumanoidRigType.R6 then
-        if (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - workspace.TPSSystem.TPS.Position).Magnitude <= 3.4 then
-            if game.Lighting[game.Players.LocalPlayer.Name].PreferredFoot.Value == 1 then
-                firetouchinterest(game.Players.LocalPlayer.Character["Right Leg"], workspace.TPSSystem.TPS, 0)
-                firetouchinterest(game.Players.LocalPlayer.Character["Right Leg"], workspace.TPSSystem.TPS, 1)
-            elseif game.Lighting[game.Players.LocalPlayer.Name].PreferredFoot.Value == 2 then
-                firetouchinterest(game.Players.LocalPlayer.Character["Left Leg"], workspace.TPSSystem.TPS, 0)
-                firetouchinterest(game.Players.LocalPlayer.Character["Left Leg"], workspace.TPSSystem.TPS, 1)
-            end
-        end
-    end
-
-    if game.Players.LocalPlayer.Character.Humanoid.RigType == Enum.HumanoidRigType.R15 then
-        if (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - workspace.TPSSystem.TPS.Position).Magnitude <= 3 then
-            if game.Lighting[game.Players.LocalPlayer.Name].PreferredFoot.Value == 1 then
-                firetouchinterest(game.Players.LocalPlayer.Character["RightLowerLeg"], workspace.TPSSystem.TPS, 0)
-                firetouchinterest(game.Players.LocalPlayer.Character["RightLowerLeg"], workspace.TPSSystem.TPS, 1)
-            elseif game.Lighting[game.Players.LocalPlayer.Name].PreferredFoot.Value == 2 then
-                firetouchinterest(game.Players.LocalPlayer.Character["LeftLowerLeg"], workspace.TPSSystem.TPS, 0)
-                firetouchinterest(game.Players.LocalPlayer.Character["LeftLowerLeg"], workspace.TPSSystem.TPS, 1)
-            end
-        end
-    end
+-- Listen for respawns
+player.CharacterAdded:Connect(function()
+    head = getHead()
 end)
+
+-- Main loop
+while task.wait(0.01) do
+    if ball and ball:IsDescendantOf(workspace) and head then
+        local distance = (head.Position - ball.Position).Magnitude
+        if distance <= triggerDistance then
+            if canFire then
+                canFire = false
+                workspace.FE.Actions.Header:FireServer(ohInstance1, ohString2, ohString3)
+            end
+        else
+            canFire = true -- Reset once you're far enough away
+        end
+    end
+end
